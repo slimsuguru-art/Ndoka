@@ -1,0 +1,98 @@
+---
+import "../styles/global.css";
+
+const {
+  titre = "Ndako — Location à Libreville, sans frais d’agence",
+  description = "Trouvez un logement à louer à Libreville avec des informations vérifiées et zéro frais d’agence.",
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const actuel = Astro.url.pathname;
+
+const liens = [
+  { href: base, label: "Accueil", icone: "accueil" },
+  { href: `${base}bailleur/`, label: "Espace bailleur", icone: "bailleur" },
+];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#065f46" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{titre}</title>
+  </head>
+
+  <body class="flex min-h-screen flex-col bg-slate-50 font-sans text-slate-900 antialiased">
+    <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+        <a href={base} class="flex items-center gap-2">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-700 font-serif text-lg font-bold text-white">N</span>
+          <span class="font-serif text-xl font-bold tracking-tight">Ndako</span>
+        </a>
+
+        <nav class="hidden items-center gap-6 md:flex" aria-label="Navigation principale">
+          {liens.map((lien) => (
+            <a
+              href={lien.href}
+              class:list={[
+                "text-sm font-semibold transition hover:text-brand-700",
+                actuel === lien.href ? "text-brand-700" : "text-slate-600",
+              ]}
+            >
+              {lien.label}
+            </a>
+          ))}
+          <span class="badge">Frais d’agence : 0 FCFA</span>
+        </nav>
+
+        <span class="badge md:hidden">0 FCFA d’agence</span>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-6 pb-28 md:pb-10">
+      <slot />
+    </main>
+
+    <footer class="hidden border-t border-slate-200 bg-white py-6 text-center text-sm text-slate-600 md:block">
+      © Ndako — Libreville, Gabon
+    </footer>
+
+    <nav class="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white md:hidden" aria-label="Navigation mobile">
+      <ul class="mx-auto flex max-w-md">
+        {liens.map((lien) => (
+          <li class="flex-1">
+            <a
+              href={lien.href}
+              class:list={[
+                "flex flex-col items-center gap-1 py-2.5 text-xs font-semibold",
+                actuel === lien.href ? "text-brand-700" : "text-slate-500",
+              ]}
+            >
+              {lien.icone === "accueil" && (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />
+                </svg>
+              )}
+              {lien.icone === "bailleur" && (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 21V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16M14 9h5a1 1 0 0 1 1 1v11M3 21h18M8 8h2M8 12h2M8 16h2" />
+                </svg>
+              )}
+              {lien.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </body>
+</html>

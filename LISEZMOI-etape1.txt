@@ -1,0 +1,26 @@
+NDAKO - Etape 1 (depot : slimsuguru-art/Ndoka) - build 100 % sur GitHub, pas de npm en local
+
+COMMENT ENVOYER SUR GITHUB (important : garder les dossiers)
+  1. Dezippe l'archive sur ton ordinateur.
+  2. Sur le depot : Add file > Upload files.
+  3. Glisse les DOSSIERS eux-memes (.github, public, src) ET les fichiers de la racine
+     (package.json, astro.config.mjs, tailwind.config.mjs, .gitignore, README.md).
+     Ne glisse pas les fichiers un par un depuis l'interieur des dossiers : ils perdraient leur dossier.
+  4. Commit changes.
+  (Mac : Cmd+Maj+. pour afficher le dossier cache .github)
+
+ARBORESCENCE ATTENDUE
+  .github/workflows/deploy.yml
+  public/favicon.svg
+  src/data/logements.js
+  src/layouts/Base.astro
+  src/pages/index.astro
+  src/styles/global.css
+  astro.config.mjs
+  package.json
+  tailwind.config.mjs
+  .gitignore
+  README.md
+
+ENSUITE : Settings > Pages > Source : GitHub Actions
+Adresse : https://slimsuguru-art.github.io/Ndoka/
